@@ -30,36 +30,44 @@ const TransferForm = ({ balance, onTransfer }) => {
   };
 
   return (
-    <div className="card">
+    <div className="card transfer-card">
       <h3>Transfer Money</h3>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Recipient Name"
-          value={recipient}
-          onChange={(e) => setRecipient(e.target.value)}
-          required
-        />
+      <form onSubmit={handleSubmit} className="transfer-form">
+        <div className="form-group">
+          <input
+            placeholder="Recipient Name"
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
+            required
+          />
+        </div>
 
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-        />
+        <div className="form-group">
+          <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+        </div>
 
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
+        <div className="form-group">
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <button disabled={loading}>
+            {loading ? "Sending..." : "Send"}
+          </button>
+        </div>
 
         {error && <p className="error">{error}</p>}
-
-        <button disabled={loading}>
-          {loading ? "Sending..." : "Send"}
-        </button>
       </form>
     </div>
   );

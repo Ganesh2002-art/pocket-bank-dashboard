@@ -9,28 +9,31 @@ const TransactionList = ({ transactions, filter, setFilter }) => {
   });
 
   return (
-    <div className="card">
-      <h3>Transactions</h3>
+    <div className="card transactions-card">
+      <div className="transactions-header">
+        <h3>Transactions</h3>
+        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <option value="all">All Transactions</option>
+          <option value="income">Income</option>
+          <option value="expenses">Expenses</option>
+        </select>
+      </div>
 
-      <select onChange={(e) => setFilter(e.target.value)}>
-        <option value="all">All</option>
-        <option value="income">Income</option>
-        <option value="expenses">Expenses</option>
-      </select>
-
-      <ul>
-        {filtered.map((t) => (
-          <li key={t.id}>
-            <span>{t.date}</span>
-            <span>{t.description}</span>
-            <span
-              className={t.type === "credit" ? "credit" : "debit"}
-            >
-              {t.type === "credit" ? "+" : "-"}
-              {formatCurrency(t.amount)}
-            </span>
-          </li>
-        ))}
+      <ul className="transactions-list">
+        {filtered.length > 0 ? (
+          filtered.map((t) => (
+            <li key={t.id}>
+              <span className="transaction-date">{t.date}</span>
+              <span className="transaction-description">{t.description}</span>
+              <span className={t.type === "credit" ? "credit" : "debit"}>
+                {t.type === "credit" ? "+" : "-"}
+                {formatCurrency(t.amount)}
+              </span>
+            </li>
+          ))
+        ) : (
+          <li className="empty-state">No transactions found</li>
+        )}
       </ul>
     </div>
   );
